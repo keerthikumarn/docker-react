@@ -1,21 +1,11 @@
 FROM node:alpine
 
-RUN mkdir -p /app && chown -R node:node /app
-
 WORKDIR /app
 
-RUN chgrp -R 0 /app && chmod -R g+rwX /app
-
-COPY package.json /app
-
-USER 1000
-
-#RUN npm config set unsafe-perm true
+COPY package.json .
 
 RUN npm install
 
+COPY . .
 
-#COPY . .
-COPY --chown=node:node . /app
-
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
